@@ -1,0 +1,44 @@
+﻿@model Gshop.Models.Game
+@{
+    ViewBag.Title = "Details";
+    var FechaA = string.Format(new System.Globalization.CultureInfo("es-DO"), "{0:D}", Model.DateAdded);
+    var FechaR = string.Format(new System.Globalization.CultureInfo("es-DO"), "{0:D}", Model.ReleaseDate);
+
+}
+
+<h2>@Model.Name</h2>
+<hr />
+<div class="row">
+    @if (Model.Link != null)
+    {
+        <div class="col-md-3">
+
+            <img src="@Model.Link" class="img-thumbnail" alt="Cinque Terre" width="304" height="236" />
+
+        </div>
+    }
+    
+    <div class="col-md-4">
+
+        <ul>
+            <li><h5><b>Género: </b>@Model.Genre.Name</h5></li>
+            <li><h5><b>Consola: </b>@Model.Console.Name</h5></li>
+            <li><h5><b>Fecha de Lanzamiento: </b>@FechaR</h5></li>
+            <li><h5><b>Fecha de Registo: </b>@FechaA</h5></li>
+            <li><h5><b>Precio: </b>$@Model.Price.00</h5></li>
+            <li><h5><b>Cantidad: </b>@Model.Stock</h5></li>
+        </ul>
+
+    </div>
+
+
+
+</div>
+
+<br />
+<br />
+@Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-default btn-lg" })
+
+
+
+

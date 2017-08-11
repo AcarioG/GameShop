@@ -1,0 +1,74 @@
+﻿@model Gshop.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "Nuevo Cliente";
+}
+<br /><br />
+
+
+<div class="row">
+
+@using (Html.BeginForm("Save", "Customers"))
+{
+    <fieldset>
+        <legend>Nuevo Cliente</legend>
+        <br />
+        <br />
+        <div class="col-md-2"></div>
+
+        <div class="col-md-5">
+
+            <div class="form-group">
+                <h5>@Html.LabelFor(x => x.Customer.Name)</h5>
+                @Html.TextBoxFor(x => x.Customer.Name, new { @class = "form-control input-lg" })
+                @Html.ValidationMessageFor(x => x.Customer.Name)
+            </div>
+            <br />
+            <div class="form-group">
+                <h5>@Html.LabelFor(x => x.Customer.Email)</h5>
+                @Html.TextBoxFor(x => x.Customer.Email, new { @class = "form-control input-lg" })
+                @Html.ValidationMessageFor(x => x.Customer.Email)
+            </div>
+            <br />
+            <div class="form-group">
+                <h5>@Html.LabelFor(x => x.Customer.Telephone)</h5>
+                @Html.TextBoxFor(x => x.Customer.Telephone, new { @class = "form-control input-lg" })
+                @Html.ValidationMessageFor(x => x.Customer.Telephone)
+            </div>
+
+        </div>
+        <div class="col-md-3">
+
+            <div class="form-group">
+                <h5>@Html.LabelFor(x => x.Customer.Address)</h5>
+                @Html.TextBoxFor(x => x.Customer.Address, new { @class = "form-control input-lg" })
+                @Html.ValidationMessageFor(x => x.Customer.Address)
+            </div>
+            <br />
+            <div class="form-group">
+                <h5>@Html.LabelFor(x => x.Customer.BirthDay)</h5>
+                @Html.TextBoxFor(x => x.Customer.BirthDay, "{0:d}", new { @class = "form-control input-lg" })
+                @Html.ValidationMessageFor(x => x.Customer.BirthDay)
+            </div>
+            <br />
+            <div class="form-group">
+                <h5>@Html.LabelFor(m => m.Customer.MembershipTypeId)</h5>
+                @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Tipo de Membresia", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId)
+            </div>
+            @Html.HiddenFor(m => m.Customer.Id)
+            <br /><br />
+            @Html.AntiForgeryToken()
+
+            <div align="right"><button type="submit" class="btn btn-primary btn-lg">Guardar</button></div>
+
+        </div>
+
+
+    </fieldset>
+}
+</div>
+
+@section scripts
+{ 
+    @Scripts.Render("~/bundles/jqueryval")    
+}

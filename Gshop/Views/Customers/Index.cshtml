@@ -1,0 +1,85 @@
+﻿@model Gshop.ViewModels.CustomerIndexViewModel
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<h2>Clientes</h2>
+<hr />
+
+@Html.ActionLink("Nuevo Cliente", "CustomerForm", null, new { @class = "btn btn-primary btn-lg" })
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal">
+    Membresias
+</button>
+@if (!Model.Customers.Any())
+{
+    <h4><p>Aun no se ha registrado ningun cliente.</p></h4>
+}
+else
+{
+    <br />
+    <br />
+    <br />
+    <table class="table table-hover" style="font-size:large;">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Tipo de membresia</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in (Model.Customers))
+            {
+
+                <tr>
+                    <td>@Html.ActionLink(customer.Name, "Details", new { id = customer.Id })</td>
+                    <td>@customer.MembershioType.Name</td>
+                    <td>@Html.ActionLink("Modificar", "Edit", new { id = customer.Id }, new { @class = "btn btn-default" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="modal fade" id="Modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Tipos de Membresias</h4>
+            </div>
+            <div class="modal-body">
+                @if (!Model.MembershipTypes.Any())
+                {
+                    <p>No se encuentra dispoble ninguna membresia</p>
+                }
+                else
+                {
+                    <table class="table table-hover" style="font-size:large;">
+                        <thead>
+                            <tr>
+                                <th>Membresia</th>
+                                <th>Duración en meses</th>
+                                <th>Descuento</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var membership in Model.MembershipTypes)
+                            {
+                                <tr>
+                                    <td>@membership.Name</td>
+                                    <td>@membership.DurationInMonths</td>
+                                    <td>-@membership.DiscountRate%</td>
+                                    <td>$@membership.SignUpFee.00</td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>

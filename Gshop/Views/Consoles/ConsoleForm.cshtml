@@ -1,0 +1,65 @@
+﻿@model Gshop.Models.Console
+@{
+    ViewBag.Title = "Nueva Consola";
+}
+<br /><br />
+
+
+<div class="row">
+
+    @using (Html.BeginForm("Save", "Consoles"))
+    {
+        <fieldset>
+            <legend>Nueva Consola</legend>
+            <br /><br />
+
+            <div class="col-md-2"></div>
+
+            <div class="col-md-5">
+
+                <div class="form-group">
+                    <h5>@Html.LabelFor(x => x.Name)</h5>
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(x => x.Name)
+                </div>
+                <br />
+                <div class="form-group">
+                    <h5>@Html.LabelFor(x => x.Company)</h5>
+                    @Html.TextBoxFor(x => x.Company, new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(x => x.Company)
+                </div>
+                <br />
+            </div>
+            <div class="col-md-3">
+
+                <div class="form-group">
+                    <h5>@Html.LabelFor(x => x.Stock)</h5>
+                    @Html.TextBoxFor(x => x.Stock, new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(x => x.Stock)
+                </div>
+                <br />
+                <div class="form-group">
+                    <h5>@Html.LabelFor(x => x.Price)</h5>
+                    <div class="input-group">
+                        <span class="input-group-addon"><h5>$</h5></span>
+                        @Html.TextBoxFor(x => x.Price, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(x => x.Price)
+                    </div>
+                </div>
+                @Html.HiddenFor(x => x.Id)
+                <br /><br />
+                @Html.AntiForgeryToken()
+                <div align="right"><button type="submit" class="btn btn-primary btn-lg">Guardar</button></div>
+
+            </div>
+
+
+        </fieldset>
+
+    }
+
+</div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

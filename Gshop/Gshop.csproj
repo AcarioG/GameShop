@@ -44,6 +44,42 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -120,21 +156,148 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BuysController.cs" />
+    <Compile Include="Controllers\ConsolesController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704152153334_InitialModel.cs" />
+    <Compile Include="Migrations\201704152153334_InitialModel.Designer.cs">
+      <DependentUpon>201704152153334_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704152157447_PopulateMembershipTypes.cs" />
+    <Compile Include="Migrations\201704152157447_PopulateMembershipTypes.Designer.cs">
+      <DependentUpon>201704152157447_PopulateMembershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704152229076_InitialModel1.cs" />
+    <Compile Include="Migrations\201704152229076_InitialModel1.Designer.cs">
+      <DependentUpon>201704152229076_InitialModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704152230052_PopulateGenres.cs" />
+    <Compile Include="Migrations\201704152230052_PopulateGenres.Designer.cs">
+      <DependentUpon>201704152230052_PopulateGenres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704152232241_InitialModel2.cs" />
+    <Compile Include="Migrations\201704152232241_InitialModel2.Designer.cs">
+      <DependentUpon>201704152232241_InitialModel2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704160151008_UpdateStockConsole.cs" />
+    <Compile Include="Migrations\201704160151008_UpdateStockConsole.Designer.cs">
+      <DependentUpon>201704160151008_UpdateStockConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704160255443_UpdateTelephoneCustomer.cs" />
+    <Compile Include="Migrations\201704160255443_UpdateTelephoneCustomer.Designer.cs">
+      <DependentUpon>201704160255443_UpdateTelephoneCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704161820577_AddLinkToGame.cs" />
+    <Compile Include="Migrations\201704161820577_AddLinkToGame.Designer.cs">
+      <DependentUpon>201704161820577_AddLinkToGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704161951332_UpdateCustomer.cs" />
+    <Compile Include="Migrations\201704161951332_UpdateCustomer.Designer.cs">
+      <DependentUpon>201704161951332_UpdateCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704161952195_UpdateConsole.cs" />
+    <Compile Include="Migrations\201704161952195_UpdateConsole.Designer.cs">
+      <DependentUpon>201704161952195_UpdateConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704161953026_UpdateGame.cs" />
+    <Compile Include="Migrations\201704161953026_UpdateGame.Designer.cs">
+      <DependentUpon>201704161953026_UpdateGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704162013485_UpdateTelephoneCustomer-force.cs" />
+    <Compile Include="Migrations\201704162013485_UpdateTelephoneCustomer-force.Designer.cs">
+      <DependentUpon>201704162013485_UpdateTelephoneCustomer-force.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704162203465_UpdateDateCustomer.cs" />
+    <Compile Include="Migrations\201704162203465_UpdateDateCustomer.Designer.cs">
+      <DependentUpon>201704162203465_UpdateDateCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170015425_UpdateDateAddedConsole.cs" />
+    <Compile Include="Migrations\201704170015425_UpdateDateAddedConsole.Designer.cs">
+      <DependentUpon>201704170015425_UpdateDateAddedConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170116239_UpdateStockGame.cs" />
+    <Compile Include="Migrations\201704170116239_UpdateStockGame.Designer.cs">
+      <DependentUpon>201704170116239_UpdateStockGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170125246_UpdateDateAddedGame.cs" />
+    <Compile Include="Migrations\201704170125246_UpdateDateAddedGame.Designer.cs">
+      <DependentUpon>201704170125246_UpdateDateAddedGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170330579_AddBuyGames.cs" />
+    <Compile Include="Migrations\201704170330579_AddBuyGames.Designer.cs">
+      <DependentUpon>201704170330579_AddBuyGames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170820504_UpdateBuyGame.cs" />
+    <Compile Include="Migrations\201704170820504_UpdateBuyGame.Designer.cs">
+      <DependentUpon>201704170820504_UpdateBuyGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170841295_AddDateAddedToBuyGage.cs" />
+    <Compile Include="Migrations\201704170841295_AddDateAddedToBuyGage.Designer.cs">
+      <DependentUpon>201704170841295_AddDateAddedToBuyGage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170844536_AddDateAddedToBuyGage1.cs" />
+    <Compile Include="Migrations\201704170844536_AddDateAddedToBuyGage1.Designer.cs">
+      <DependentUpon>201704170844536_AddDateAddedToBuyGage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170953496_AddBuyConsole.cs" />
+    <Compile Include="Migrations\201704170953496_AddBuyConsole.Designer.cs">
+      <DependentUpon>201704170953496_AddBuyConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170955007_AddBuyConsole1.cs" />
+    <Compile Include="Migrations\201704170955007_AddBuyConsole1.Designer.cs">
+      <DependentUpon>201704170955007_AddBuyConsole1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708102027529_remigrationaftererror.cs" />
+    <Compile Include="Migrations\201708102027529_remigrationaftererror.Designer.cs">
+      <DependentUpon>201708102027529_remigrationaftererror.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708102035045_databaseafterError.cs" />
+    <Compile Include="Migrations\201708102035045_databaseafterError.Designer.cs">
+      <DependentUpon>201708102035045_databaseafterError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708102258141_d.cs" />
+    <Compile Include="Migrations\201708102258141_d.Designer.cs">
+      <DependentUpon>201708102258141_d.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BuyConsole.cs" />
+    <Compile Include="Models\BuyGame.cs" />
+    <Compile Include="Models\Console.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\Min18YearsIfAMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BuyConsoleViewModel.cs" />
+    <Compile Include="ViewModels\BuyGame2ViewModel.cs" />
+    <Compile Include="ViewModels\BuyGameViewModel.cs" />
+    <Compile Include="ViewModels\BuyListViewModel.cs" />
+    <Compile Include="ViewModels\CustomerFormViewModel.cs" />
+    <Compile Include="ViewModels\CustomerIndexViewModel.cs" />
+    <Compile Include="ViewModels\GameFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-paper.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Error.png" />
+    <Content Include="Content\icon.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -147,7 +310,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -161,10 +326,22 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Customers\CustomerForm.cshtml" />
+    <Content Include="Views\Consoles\Index.cshtml" />
+    <Content Include="Views\Consoles\ConsoleForm.cshtml" />
+    <Content Include="Views\Games\Index.cshtml" />
+    <Content Include="Views\Games\GameForm.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Consoles\Details.cshtml" />
+    <Content Include="Views\Games\Details.cshtml" />
+    <Content Include="Views\Buys\Manager.cshtml" />
+    <Content Include="Views\Buys\MakeBuy.cshtml" />
+    <Content Include="Views\Buys\MakeBuyC.cshtml" />
+    <Content Include="Views\Buys\BuyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -173,6 +350,83 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704152153334_InitialModel.resx">
+      <DependentUpon>201704152153334_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704152157447_PopulateMembershipTypes.resx">
+      <DependentUpon>201704152157447_PopulateMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704152229076_InitialModel1.resx">
+      <DependentUpon>201704152229076_InitialModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704152230052_PopulateGenres.resx">
+      <DependentUpon>201704152230052_PopulateGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704152232241_InitialModel2.resx">
+      <DependentUpon>201704152232241_InitialModel2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160151008_UpdateStockConsole.resx">
+      <DependentUpon>201704160151008_UpdateStockConsole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160255443_UpdateTelephoneCustomer.resx">
+      <DependentUpon>201704160255443_UpdateTelephoneCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704161820577_AddLinkToGame.resx">
+      <DependentUpon>201704161820577_AddLinkToGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704161951332_UpdateCustomer.resx">
+      <DependentUpon>201704161951332_UpdateCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704161952195_UpdateConsole.resx">
+      <DependentUpon>201704161952195_UpdateConsole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704161953026_UpdateGame.resx">
+      <DependentUpon>201704161953026_UpdateGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704162013485_UpdateTelephoneCustomer-force.resx">
+      <DependentUpon>201704162013485_UpdateTelephoneCustomer-force.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704162203465_UpdateDateCustomer.resx">
+      <DependentUpon>201704162203465_UpdateDateCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170015425_UpdateDateAddedConsole.resx">
+      <DependentUpon>201704170015425_UpdateDateAddedConsole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170116239_UpdateStockGame.resx">
+      <DependentUpon>201704170116239_UpdateStockGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170125246_UpdateDateAddedGame.resx">
+      <DependentUpon>201704170125246_UpdateDateAddedGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170330579_AddBuyGames.resx">
+      <DependentUpon>201704170330579_AddBuyGames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170820504_UpdateBuyGame.resx">
+      <DependentUpon>201704170820504_UpdateBuyGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170841295_AddDateAddedToBuyGage.resx">
+      <DependentUpon>201704170841295_AddDateAddedToBuyGage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170844536_AddDateAddedToBuyGage1.resx">
+      <DependentUpon>201704170844536_AddDateAddedToBuyGage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170953496_AddBuyConsole.resx">
+      <DependentUpon>201704170953496_AddBuyConsole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170955007_AddBuyConsole1.resx">
+      <DependentUpon>201704170955007_AddBuyConsole1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708102027529_remigrationaftererror.resx">
+      <DependentUpon>201708102027529_remigrationaftererror.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708102035045_databaseafterError.resx">
+      <DependentUpon>201708102035045_databaseafterError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708102258141_d.resx">
+      <DependentUpon>201708102258141_d.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

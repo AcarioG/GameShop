@@ -1,0 +1,104 @@
+﻿@model Gshop.ViewModels.BuyGame2ViewModel 
+@{
+    ViewBag.Title = "Comprar Juego";
+    var FechaR = string.Format(new System.Globalization.CultureInfo("es-DO"), "{0:D}", Model.Game.ReleaseDate);
+}
+
+<div align="right" style="margin-top:35px;"><h4>@Html.ActionLink(@Model.Customer.Name, "Details", "Customers", new { id = Model.Customer.Id}, null)</h4></div>
+<hr />
+<h3>@Model.Game.Name</h3>
+
+<div class="row">
+    @if (Model.Game.Link != null)
+    {
+        <div class="col-md-3">
+
+            <img src="@Model.Game.Link" class="img-thumbnail" alt="Cinque Terre" width="304" height="236" />
+
+        </div>
+    }
+
+    <div class="col-md-4">
+        <ul>
+            <li><h5><b>Género: </b>@Model.Game.Genre.Name</h5></li>
+            <li><h5><b>Consola: </b>@Model.Game.Console.Name</h5></li>
+            <li><h5><b>Fecha de Lanzamiento: </b>@FechaR</h5></li>
+            <li><h5><b>Precio: </b>$@Model.Game.Price.00 <span class="label label-danger">-@Model.Customer.MembershioType.DiscountRate% de Descuento</span></h5></li>
+            <li><h5><b>Cantidad: </b>@Model.Game.Stock</h5></li>
+        </ul>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        @if (Model.Game.Stock == 0)
+        {
+            <h5>Este juego no se encuentra disponible actualmente.</h5>
+        }
+        else
+        {
+            using (Html.BeginForm("Save", "Buys"))
+            {
+
+                @Html.HiddenFor(m => m.BuyGame.Id)
+                @Html.TextBoxFor(m => m.BuyGame.GameId, new { @value = Model.Game.Id, @type = "hidden" })
+                @Html.TextBoxFor(m => m.BuyGame.CustomerId, new { @value = Model.Customer.Id, @type = "hidden" })
+
+                <div class="form-group">
+                    <h5>@Html.LabelFor(m => m.BuyGame.Stock)</h5>
+                    @Html.TextBoxFor(m => m.BuyGame.Stock, new { @class = "form-control input-lg", @type = "number", @id = "stock", @min = "1", @max = Model.Game.Stock, @oninvalid = "this.setCustomValidity('Ingrese una cantidad existente')"})
+                </div>
+                <br />
+                <div class="form-group">
+                    <h5>@Html.LabelFor(m => m.BuyGame.Amount)</h5>
+                    <div class="input-group">
+                        <span class="input-group-addon"><h5>$</h5></span>
+                        @Html.TextBoxFor(m => m.BuyGame.Amount, new { @class = "form-control input-lg", @type = "number", @id = "amount", @readonly = "true" })
+                    </div>
+                </div>
+                <br />
+                <br />@Html.AntiForgeryToken()
+                <div align="right">
+                    <button type="button" data-keyboard="false" data-backdrop="static" class="btn btn-success btn-lg" data-toggle="modal" data-target="#Modal">
+                        Comprar
+                    </button>
+                </div>
+
+                <div class="modal fade" id="Modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Comprar Juego</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Esta seguro que desea Comprar este Juego?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-success">Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+    </div>
+</div>
+<br />
+<br />
+<br />
+@Html.ActionLink("Atrás", "Manager", null, new { @class = "btn btn-default btn-lg" })
+
+
+
+@section scripts
+    {
+    
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('#stock').change(function () {
+            $('#amount').val($(this).val() *( @Model.Game.Price-((@Model.Customer.MembershioType.DiscountRate)/(100)*@Model.Game.Price)));
+        });
+    </script>
+}

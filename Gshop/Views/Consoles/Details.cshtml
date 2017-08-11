@@ -1,0 +1,19 @@
+﻿@model Gshop.Models.Console
+@{
+    ViewBag.Title = "Detalles";
+    var Fecha = string.Format(new System.Globalization.CultureInfo("es-DO"), "{0:D}", Model.DateAdded);
+}
+
+<h2>@Model.Name</h2>
+<hr />
+<ul>
+    <li><h5><b>Compañia: </b>@Model.Company</h5></li>
+    <li><h5><b>Fecha de Registro: </b>@Fecha</h5></li>
+    <li><h5><b>Precio: </b>$@Model.Price.00</h5></li>
+    <li><h5><b>Cantidad: </b>@Model.Stock</h5></li>
+</ul>
+<br />
+<br />
+@Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-default btn-lg" })
+
+

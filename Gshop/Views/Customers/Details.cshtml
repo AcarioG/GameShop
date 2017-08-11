@@ -1,0 +1,21 @@
+﻿@model Gshop.Models.Customer
+@{
+    ViewBag.Title = "Detalles";
+    var Fecha = string.Format(new System.Globalization.CultureInfo("es-DO"), "{0:D}", Model.BirthDay);
+
+}
+
+<h2>@Model.Name</h2>
+<hr />
+
+<ul>
+    <li><h5><b>E-mail: </b>@Model.Email</h5></li>
+    <li><h5><b>Dirección: </b>@Model.Address</h5></li>
+    <li><h5><b>Telefono: </b>@Model.Telephone</h5></li>
+    <li><h5><b>Fecha de Nacimiento: </b>@Fecha</h5></li>
+    <li><h5><b>Tipo de Membresia: </b>@Model.MembershioType.Name</h5></li>
+    <li><h5><b>Descuento de Membresia: </b>-@Model.MembershioType.DiscountRate%</h5></li>
+</ul>
+<br />
+<br />
+@Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-default btn-lg"})

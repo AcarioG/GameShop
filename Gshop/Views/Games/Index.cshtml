@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Gshop.Models.Game>
+@{
+    ViewBag.Title = "Juegos";
+}
+
+<h2>Juegos</h2>
+<hr />
+
+@Html.ActionLink("Nuevo Juego", "GameForm", null, new { @class = "btn btn-primary btn-lg" })
+
+@if (!Model.Any())
+{
+    <h4><p>Aun no se ha registrado ningun Juego.</p></h4>
+}
+else
+{
+    <br />
+    <br />
+    <br />
+        <table class="table table-hover" style="font-size:large;">
+            <thead>
+                <tr>
+                    <th>Juego</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var game in Model)
+                {
+                    var hr = String.Format("Modal" + game.Id);
+                    <tr>
+                        <td>@Html.ActionLink(game.Name, "Details", new { id = game.Id })</td>
+                        <td>$@game.Price.00</td>
+                        <td>@game.Stock</td>
+                        <td>@Html.ActionLink("Modificar", "Edit", new { id = game.Id }, new { @class = "btn btn-default" })</td>
+                        <td>
+                            <button type="button" data-keyboard="false" data-backdrop="static" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#@hr">
+                                X
+                            </button>
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="@hr">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Eliminar Juego</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Esta seguro que desea eliminar este juego?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = game.Id }, new { @class = "btn btn-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </tbody>
+        </table>
+}

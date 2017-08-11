@@ -1,0 +1,87 @@
+﻿@model Gshop.ViewModels.BuyGameViewModel
+
+@{
+    ViewBag.Title = "Tienda";
+}
+
+<h2>Tienda</h2>
+<div align="right">
+    @Html.ActionLink("Lista de compras", "BuyList", null, new { @Class = "btn btn-primary btn-lg" })
+</div>
+<br />
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" aria-expanded="false">
+    <div class="panel panel-warning">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Comprar Juego
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                @using (Html.BeginForm("MakeBuy", "Buys"))
+                {
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <h5>@Html.LabelFor(m => m.BuyGame.CustomerId)</h5>
+                            @Html.DropDownListFor(m => m.BuyGame.CustomerId, new SelectList(Model.Customers, "Id", "Name"), "Selecciona un Cliente", new { @class = "form-control", @id = "dropp" })
+                            @Html.ValidationMessageFor(m => m.BuyGame.CustomerId)
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <h5>@Html.LabelFor(m => m.BuyGame.GameId)</h5>
+                            @Html.DropDownListFor(m => m.BuyGame.GameId, new SelectList(Model.Games, "Id", "Name"), "Selecciona un Juego", new { @class = "form-control", @id = "dropp" })
+                            @Html.ValidationMessageFor(m => m.BuyGame.GameId)
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="margin-top: 20px;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-primary btn-lg">Ir</button>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Comprar Consola
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+                @using (Html.BeginForm("MakeBuyC", "Buys"))
+                {
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <h5>@Html.LabelFor(m => m.BuyConsole.CustomerId)</h5>
+                            @Html.DropDownListFor(m => m.BuyConsole.CustomerId, new SelectList(Model.Customers, "Id", "Name"), "Selecciona un Cliente", new { @class = "form-control", @id = "dropp" })
+                            @Html.ValidationMessageFor(m => m.BuyConsole.CustomerId)
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <h5>@Html.LabelFor(m => m.BuyConsole.ConsoleId)</h5>
+                            @Html.DropDownListFor(m => m.BuyConsole.ConsoleId, new SelectList(Model.Consoles, "Id", "Name"), "Selecciona una Consola", new { @class = "form-control", @id = "dropp" })
+                            @Html.ValidationMessageFor(m => m.BuyConsole.ConsoleId)
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="margin-top: 20px;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-primary btn-lg">Ir</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

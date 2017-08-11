@@ -22,3 +22,18 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.field-validation-error{
+    color:red;
+    font-size:14px
+}
+.input-validation-error{
+    background: url('Error.png');
+    background-size: 16px,16px;
+    background-repeat:no-repeat;
+    background-position-y:center;
+    background-position-x:right;
+}
+.form-control.input-lg {
+    padding-right:25px;
+}

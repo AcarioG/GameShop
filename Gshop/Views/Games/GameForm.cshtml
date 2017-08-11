@@ -1,0 +1,86 @@
+﻿@model Gshop.ViewModels.GameFormViewModel
+@{
+    ViewBag.Title = "Nuevo Juego";
+}
+<br /><br />
+
+
+<div class="row">
+
+@using (Html.BeginForm("Save", "Games"))
+{
+        <fieldset>
+            <legend>Nuevo Juego</legend>
+            <br /><br />
+
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <h5>@Html.LabelFor(x => x.Game.Name)</h5>
+                    @Html.TextBoxFor(x => x.Game.Name, new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(x => x.Game.Name)
+                </div>
+                <br />
+                <div class="form-group">
+                    <h5>@Html.LabelFor(x => x.Game.ReleaseDate)</h5>
+                    @Html.TextBoxFor(x => x.Game.ReleaseDate, "{0:d}", new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(x => x.Game.ReleaseDate)
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <h5>@Html.LabelFor(x => x.Game.Stock)</h5>
+                    @Html.TextBoxFor(x => x.Game.Stock, new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(x => x.Game.Stock)
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <h5>@Html.LabelFor(m => m.Game.ConsoleId)</h5>
+                    @Html.DropDownListFor(m => m.Game.ConsoleId, new SelectList(Model.Consoles, "Id", "Name"), "Selecciona una Consola", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Game.ConsoleId)
+                </div>
+                <br />
+                <div class="form-group">
+                    <h5>@Html.LabelFor(m => m.Game.GenreId)</h5>
+                    @Html.DropDownListFor(m => m.Game.GenreId, new SelectList(Model.Genres, "Id", "Name"), "Selecciona un genero", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Game.GenreId)
+                </div>
+                <br />
+                <div class="form-group">
+                    <h5>@Html.LabelFor(x => x.Game.Price)</h5>
+                    <div class="input-group">
+                        <span class="input-group-addon"><h5>$</h5></span>
+                        @Html.TextBoxFor(x => x.Game.Price, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(x => x.Game.Price)
+                    </div>
+                </div>
+                @Html.HiddenFor(m => m.Game.Id)
+
+                @Html.AntiForgeryToken()
+                <br /><br />
+                <div align="right"><button type="submit" class="btn btn-primary btn-lg">Guardar</button></div>
+
+            </div>
+            <div class="col-md-2">
+
+                <div class="form-group">
+                    <h5>@Html.LabelFor(x => x.Game.Link)*</h5>
+                    @Html.TextBoxFor(x => x.Game.Link, new { @class = "form-control input-lg" })
+                    @Html.ValidationMessageFor(x => x.Game.Link)
+                </div>
+            </div>
+
+
+
+        </fieldset>
+
+    }
+
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

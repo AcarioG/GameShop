@@ -1,0 +1,101 @@
+﻿@model Gshop.ViewModels.BuyConsoleViewModel
+@{
+    ViewBag.Title = "Comprar Consola";
+}
+
+<div align="right" style="margin-top:35px;"><h4>@Html.ActionLink(@Model.Customer.Name, "Details", "Customers", new { id = Model.Customer.Id }, null)</h4></div>
+<hr />
+<h3>@Model.Console.Name</h3>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <ul>
+            <li><h5><b>Compañia: </b>@Model.Console.Company</h5></li>
+            <li><h5><b>Precio: </b>$@Model.Console.Price.00<span class="label label-danger">-@Model.Customer.MembershioType.DiscountRate% de Descuento</span></h5></li>
+            <li><h5><b>Cantidad: </b>@Model.Console.Stock</h5></li>
+        </ul>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        @if (Model.Console.Stock == 0)
+        {
+            <h5>Esta consola no se encuentra disponible actualmente.</h5>
+        }
+        else
+        {
+            using (Html.BeginForm("SaveC", "Buys"))
+            {
+
+                @Html.HiddenFor(m => m.BuyConsole.Id)
+                @Html.TextBoxFor(m => m.BuyConsole.ConsoleId, new { @value = Model.Console.Id, @type = "hidden" })
+                @Html.TextBoxFor(m => m.BuyConsole.CustomerId, new { @value = Model.Customer.Id, @type = "hidden" })
+
+                <div class="form-group">
+                    <h5>@Html.LabelFor(m => m.BuyConsole.Stock)</h5>
+                    @Html.TextBoxFor(m => m.BuyConsole.Stock, new
+                       {
+                           @class = "form-control input-lg",
+                           @type = "number",
+                           @id = "stock",
+                           @min = "1",
+                           @max = Model.Console.Stock,
+                           @oninvalid = "this.setCustomValidity('Ingrese una cantidad existente')"
+                       })
+                </div>
+                <br />
+                <div class="form-group">
+                    <h5>@Html.LabelFor(m => m.BuyConsole.Amount)</h5>
+                    <div class="input-group">
+                        <span class="input-group-addon"><h5>$</h5></span>
+                        @Html.TextBoxFor(m => m.BuyConsole.Amount, new { @class = "form-control input-lg", @type = "number", @id = "amount", @readonly = "true" })
+                    </div>
+                </div>
+                <br />
+                <br />@Html.AntiForgeryToken()
+                <div align="right">
+                    <button type="button" data-keyboard="false" data-backdrop="static" class="btn btn-success btn-lg" data-toggle="modal" data-target="#Modal">
+                        Comprar
+                    </button>
+                </div>
+
+                <div class="modal fade" id="Modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Comprar Consola</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Esta seguro que desea Comprar esta Consola?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-success">Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+    </div>
+</div>
+<br />
+<br />
+<br />
+@Html.ActionLink("Atrás", "Manager", null, new { @class = "btn btn-default btn-lg" })
+
+
+
+@section scripts
+    {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('#stock').change(function () {
+            $('#amount').val($(this).val() *( @Model.Console.Price-((@Model.Customer.MembershioType.DiscountRate)/(100)*@Model.Console.Price)));
+        });
+    </script>
+}

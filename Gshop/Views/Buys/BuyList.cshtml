@@ -1,0 +1,328 @@
+﻿@model Gshop.ViewModels.BuyListViewModel
+@{
+    ViewBag.Title = "Lista";
+}
+
+<h3>Lista de Compras</h3>
+<hr />
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" aria-expanded="false">
+    <div class="panel panel-warning">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Lista de Juegos
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+
+                @if (!Model.BuyGames.Any())
+                {
+                <h5>No se han realizado una compra de algun juego.</h5>
+                }
+                else
+                {
+                <h4>Consolas</h4>
+                <table class="table table-hover" style="font-size:large;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Cliente</th>
+                            <th>Juego</th>
+                            <th>Genero</th>
+                            <th>Fecha de compra</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                            <th>Facturar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var game in Model.BuyGames)
+                        {
+                            var Fecha = string.Format(new System.Globalization.CultureInfo("es-DO"), "{0:D}", game.DateAdded);
+                            var Fecha2 = String.Format("{0:d/M/yyyy}", game.DateAdded);
+
+                            var hrg = String.Format("Modalg" + game.Id);
+                            var hri = String.Format("ModalIm" + game.Id);
+                            var imprimir = String.Format("imprimirg" + game.Id);
+                            <tr>
+                                <td>
+                                    <a data-toggle="modal" data-target="#@hri">
+                                        <img src="@game.Game.Link" class="img-thumbnail" alt="Cinque Terre" width="40" height="60" />
+                                    </a>
+                                </td>
+
+                                <td>@Html.ActionLink(game.Customer.Name, "Details", "Customers", new { id = game.CustomerId }, null)</td>
+                                <td>
+                                    @Html.ActionLink(game.Game.Name, "Details", "Games", new { id = game.GameId }, null)
+                                </td>
+                                <td>@game.Game.Genre.Name</td>
+                                <td>@Fecha</td>
+                                <td>@game.Stock</td>
+                                <td>$@game.Amount.00</td>
+                                <td>
+                                    <button type="button" data-keyboard="false" data-backdrop="static" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#@hrg">
+                                        Imprimir
+                                    </button>
+                                </td>
+                            </tr>
+                            //Modal Para ver imagen
+                            <div class="modal fade" id="@hrg">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Imprimir Factura</h4>
+                                        </div>
+                                        <div class="modal-body" id="@imprimir">
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-8">
+                                                    <h4>
+                                                        
+                                                        <div style="clear: both;">
+                                                            
+                                                            <br />
+                                                            <b><p style="float: left;">ID de Factura:</p></b>
+                                                            <p style="float: right;">G#@game.Id</p>
+                                                        </div>
+                                                        
+                                                        <div style="clear: both;">
+                                                            <hr />
+                                                        </div>
+                                                        <div style="clear: both;">
+                                                            <br />
+                                                            <br />
+                                                            <b><p style="float: left;">Fecha de pago:</p></b>
+                                                            <p style="float: right;">@Fecha2</p>
+                                                        </div>
+                                                        <div style="clear: both;">
+                                                            <hr />
+                                                        </div>
+                                                        <div style="clear: both;">
+                                                            <br />
+                                                            <b><p style="float: left;">Cliente:</p></b>
+                                                            <p style="float: right;">@game.Customer.Name</p>
+                                                        </div>
+
+                                                        <div style="clear: both;">
+                                                            <hr />
+                                                        </div>
+                                                        <div style="clear: both;">
+                                                            <br />
+                                                            <b><p style="float: left;">Game:</p></b>
+                                                            <p style="float: right;">@game.Game.Name</p>
+                                                        </div>
+                                                        <div style="clear: both;">
+                                                            <hr />
+                                                        </div>
+                                                        <div style="clear: both;">
+                                                            <br />
+                                                            <b><p style="float: left;">Cantidad:</p></b>
+                                                            <p style="float: right;">
+                                                                @game.Stock
+                                                            </p>
+                                                        </div>
+                                                        <div style="clear: both;">
+                                                            <hr />
+                                                        </div>
+                                                        <div style="clear: both;">
+                                                            <br />
+                                                            <br />
+                                                            <b><p style="float: left;">Total:</p></b>
+                                                            <p style="float: right;">
+                                                                $@game.Amount.00
+                                                            </p>
+                                                        </div>
+
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            @Html.ActionLink("Cerrar", "BuyList", null, new { @type = "button", @class = "btn btn-default" })
+                                            <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="javascript: printdiv('@imprimir');">Imprimir</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            //Modal Para imprimir
+                            <div class="modal fade" id="@hri">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">@game.Game.Name - @game.Game.Console.Name</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <center><img src="@game.Game.Link" class="img-rounded" width="400" height="500" /></center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </tbody>
+                </table>
+                }
+
+            </div>
+        </div>
+
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Lista de Consolas
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+
+                @if (!Model.BuyConsoles.Any())
+            {
+                    <h5>No se han realizado una compra de alguna consola.</h5>
+                }
+                else
+                {
+                    <h4>Consolas</h4>
+                    <table class="table table-hover" style="font-size:large;">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Consola</th>
+                                <th>Fecha</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Facturar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var console in Model.BuyConsoles)
+                            {
+                                var Fecha = string.Format(new System.Globalization.CultureInfo("es-DO"), "{0:D}", console.DateAdded);
+                                var Fecha2 = String.Format("{0:d/M/yyyy}", console.DateAdded);
+
+                                var hr = String.Format("ModalC" + console.Id);
+                                var imprimir = String.Format("imprimirc" + console.Id);
+
+                                <tr>
+                                    <td>@Html.ActionLink(console.Customer.Name, "Details", "Customers", new { id = console.CustomerId }, null)</td>
+                                    <td>@Html.ActionLink(console.Console.Name, "Details", "Consoles", new { id = console.ConsoleId }, null)</td>
+                                    <td>@Fecha</td>
+                                    <td>@console.Stock</td>
+                                    <td>$@console.Amount.00</td>
+                                    <td>
+                                        <button type="button" data-keyboard="false" data-backdrop="static" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#@hr">
+                                            Imprimir
+                                        </button>
+                                    </td>
+                                </tr>
+                                //Modal Para imprimir
+                                <div class="modal fade" id="@hr">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Imprimir Factura</h4>
+                                            </div>
+                                            <div class="modal-body" id="@imprimir">
+                                                <div class="row">
+                                                    <div class="col-md-offset-2 col-md-8">
+                                                        <h4>
+                                                            <div style="clear: both;">
+                                                                <br />
+                                                                <b><p style="float: left;">ID de Factura:</p></b>
+                                                                <p style="float: right;">C#@console.Id</p>
+                                                            </div>
+                                                            <div style="clear: both;">
+                                                                <hr />
+                                                            </div>
+                                                            <div style="clear: both;">
+                                                                <br />
+                                                                <br />
+                                                                <b><p style="float: left;">Fecha de pago:</p></b>
+                                                                <p style="float: right;">@Fecha2</p>
+                                                            </div>
+                                                            <div style="clear: both;">
+                                                                <hr />
+                                                            </div>
+                                                            <div style="clear: both;">
+                                                                <br />
+                                                                <b><p style="float: left;">Cliente:</p></b>
+                                                                <p style="float: right;">@console.Customer.Name</p>
+                                                            </div>
+                                                            <div style="clear: both;">
+                                                                <hr />
+                                                            </div>
+                                                            <div style="clear: both;">
+                                                                <br />
+                                                                <b><p style="float: left;">Consola:</p></b>
+                                                                <p style="float: right;">@console.Console.Name</p>
+                                                            </div>
+                                                            <div style="clear: both;">
+                                                                <hr />
+                                                            </div>
+                                                            <div style="clear: both;">
+                                                                <br />
+                                                                <b><p style="float: left;">Cantidad:</p></b>
+                                                                <p style="float: right;">
+                                                                    @console.Stock
+                                                                </p>
+                                                            </div>
+                                                            <div style="clear: both;">
+                                                                <hr />
+                                                            </div>
+                                                            <div style="clear: both;">
+                                                                <br />
+                                                                <br />
+                                                                <b><p style="float: left;">Total:</p></b>
+                                                                <p style="float: right;">
+                                                                    $@console.Amount.00
+                                                                </p>
+                                                            </div>
+
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                @Html.ActionLink("Cerrar", "BuyList", null, new { @type = "button", @class = "btn btn-default" })
+                                                <button type="button" class="btn btn-info" data-dismiss="modal" onclick="javascript: printdiv('@imprimir');">Imprimir</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+        </div>
+     </div>
+</div>
+<br />
+<br />
+@Html.ActionLink("Atrás", "Manager", null, new { @class = "btn btn-default btn-lg" })
+
+
+    @section scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script>
+            function printdiv(printpage) {
+                var headstr = "<html><head></head><body>";
+                var footstr = "</body>";
+                var newstr = document.all.item(printpage).innerHTML;
+                var oldstr = document.body.innerHTML;
+                document.body.innerHTML = headstr + newstr + footstr;
+                window.print();
+                document.body.innerHTML = oldstr;
+                return false;
+            }
+        </script>
+    }
+
